@@ -10,3 +10,4 @@ Route::post('/register', [RegistrationController::class, 'register']);
 
 Route::get('/home', function () { return view('home');})->middleware(RegistrationValidator::class);
 Route::get('/time', function () { return view('time');})->middleware(RegistrationValidator::class);
+Route::get('/countdown', function () { return view('countdown');})->middleware(RegistrationValidator::class);
