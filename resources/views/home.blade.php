@@ -51,7 +51,7 @@
                     <a class="button is-primary is-outlined is-fullwidth" href="/time">Time</a>
                 </div>
                 <div class="column">
-                    <a class="button is-primary is-outlined is-fullwidth" href="/countdown">Countdown</a>
+                    <a class="button is-primary is-outlined is-fullwidth" href="/countdown/setup">Countdown</a>
                 </div>
                 <div class="column">
                     <a class="button is-primary is-outlined is-fullwidth" href="/auth?redirect=settings">Settings</a>

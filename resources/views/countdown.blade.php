@@ -10,8 +10,14 @@
 
     <script>
         var timeRemaining = "Get ready!";
-        var time = 60;
-        var musicIntro = 55;
+        var time = {{ $time }};
+        var unit = "{{ $unit }}";
+        if (unit === "Minutes") {
+            time = time*60;
+        } else if (unit === "Hours") {
+            time = time*3600;
+        }
+        var musicIntro = {{ $warning }};
         var introMusic = new Audio("/sound/timer-intro.mp3");
         var loopMusic = new Audio("/sound/timer-loop.mp3");
         loopMusic.loop = true;
