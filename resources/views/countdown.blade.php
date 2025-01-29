@@ -18,8 +18,8 @@
             time = time*3600;
         }
         var musicIntro = {{ $warning }};
-        var introMusic = new Audio("/sound/timer-intro.mp3");
-        var loopMusic = new Audio("/sound/timer-loop.mp3");
+        var introMusic = new Audio("https://hotten.uk/inwall/timer-intro.mp3");
+        var loopMusic = new Audio("https://hotten.uk/inwall/timer-loop.mp3");
         loopMusic.loop = true;
 
         introMusic.addEventListener('ended', function() {
