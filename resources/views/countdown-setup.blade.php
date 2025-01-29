@@ -9,17 +9,31 @@
     @vite(['resources/scss/app.scss'])
 
     <script>
+        var selected;
+
+        window.addEventListener('load', function () {
+            selected = document.getElementById("time");
+        });
+
         function keypadClick(number) {
-            document.getElementById("time").value = document.getElementById("time").value + number;
+            selected.value = selected.value + number;
         }
 
         function clearInput() {
-            document.getElementById("time").value = "";
+            selected.value = "";
         }
 
         function removeLast() {
-            var value = document.getElementById("time").value;
-            document.getElementById("time").value = value.substring(0, value.length-1);
+            var value = selected.value;
+            selected.value = value.substring(0, value.length-1);
+        }
+
+        function selectTime() {
+            selected = document.getElementById("time");
+        }
+
+        function selectWarning() {
+            selected = document.getElementById("warning");
         }
     </script>
 </head>
@@ -74,11 +88,11 @@
                             <div class="field">
                                 <label class="label" for="time">Time</label>
                                 <div class="control">
-                                    <input class="input" type="number" id="time" name="time">
+                                    <input class="input" type="number" id="time" name="time" onfocus="selectTime()">
                                     @error('time')<p class="help is-danger">{{ $message }}</p>@enderror
                                 </div>
                             </div>
-                            <br>
+
                             <div class="field">
                                 <label class="label" for="unit">Unit</label>
                                 <div class="control">
@@ -92,15 +106,15 @@
                                     @error('unit')<p class="help is-danger">{{ $message }}</p>@enderror
                                 </div>
                             </div>
-                            <br>
+
                             <div class="field">
                                 <label class="label" for="warning">Warning Time (seconds)</label>
                                 <div class="control">
-                                    <input class="input" type="number" id="warning" name="warning" value="30">
+                                    <input class="input" type="number" id="warning" name="warning" value="30" onfocus="selectWarning()">
                                     @error('warning')<p class="help is-danger">{{ $message }}</p>@enderror
                                 </div>
                             </div>
-                            <br>
+
                             <div class="field">
                                 <p class="control">
                                     <button class="button is-success is-outlined is-fullwidth">Start Countdown</button>

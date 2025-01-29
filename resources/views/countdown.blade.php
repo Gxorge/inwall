@@ -20,7 +20,9 @@
         var musicIntro = {{ $warning }};
         var introMusic = new Audio("https://hotten.uk/inwall/timer-intro.mp3");
         var loopMusic = new Audio("https://hotten.uk/inwall/timer-loop.mp3");
+        var timerEnd = new Audio("https://hotten.uk/inwall/timer-end.mp3");
         loopMusic.loop = true;
+        timerEnd.loop = true;
 
         introMusic.addEventListener('ended', function() {
             loopMusic.play();
@@ -32,6 +34,8 @@
                 document.getElementById('inwall-remaining').innerHTML = timeRemaining;
                 introMusic.pause();
                 loopMusic.pause();
+                timerEnd.play();
+                clearInterval(updater);
                 return;
             }
             timeRemaining = format();
