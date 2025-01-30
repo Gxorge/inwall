@@ -9,7 +9,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () { return view('register');})->middleware(ReverseRegistrationValidator::class);
 Route::post('/register', [RegistrationController::class, 'register']);
 
-Route::get('/home', function () { return view('home');})->middleware(RegistrationValidator::class);
+Route::get('/auth', function () { return view('auth');})->middleware(RegistrationValidator::class);
+
+
+Route::get('/home', function (Request $request) {
+    $site = $request->session()->get('rid');
+    $terminal = $request->session()->get('tid');
+    return view('home')->with(['sitedata' => 'Site #' . $site . ' Terminal #' . $terminal]);
+})->middleware(RegistrationValidator::class);
 Route::get('/time', function () { return view('time');})->middleware(RegistrationValidator::class);
 
 Route::get('/countdown/setup', function () { return view('countdown-setup');})->middleware(RegistrationValidator::class);

@@ -7,6 +7,7 @@
     <title>Hotten Inwall</title>
 
     @vite(['resources/scss/app.scss'])
+    @vite(['resources/js/inactivity.js'])
 
     <script>
         var time = "00:00";
@@ -60,6 +61,8 @@
             <div class="is-centered">
                 <p class="has-text-centered" id="inwall-date"></p>
                 <p class="has-text-centered" id="inwall-time"></p>
+                <br><br><br><br>
+                <p class="has-text-centered is-size-7">{{$sitedata}}</p>
             </div>
         </div>
     </section>

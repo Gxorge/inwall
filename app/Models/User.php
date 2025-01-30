@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Registration extends Model
+class User extends Model
 {
     use HasFactory;
 
@@ -15,14 +15,14 @@ class Registration extends Model
      *
      * @var string
      */
-    protected $table = "registrations";
+    protected $table = "users";
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = "rid";
+    protected $primaryKey = "uid";
 
     /**
      * Indicates if the model's ID is auto-incrementing.
@@ -38,13 +38,8 @@ class Registration extends Model
      */
     public $timestamps = true;
 
-    public function terminals(): HasMany
+    public function site(): BelongsTo
     {
-        return $this->hasMany(Terminal::class, "site_id");
-    }
-
-    public function users(): HasMany
-    {
-        return $this->hasMany(User::class, "site_id");
+        return $this->belongsTo(Registration::class, 'rid');
     }
 }

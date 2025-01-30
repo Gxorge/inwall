@@ -80,7 +80,7 @@
             </div>
         </section>
         <div class="bottom-button footer-sticky">
-            <a class="button is-fullwidth is-primary is-outlined" href="/">Home</a>
+            <a class="button is-fullwidth is-primary is-outlined" href="/home">Home</a>
         </div>
     </main>
 </body>

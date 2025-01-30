@@ -10,9 +10,8 @@
 
     <script>
         var selected;
-
         window.addEventListener('load', function () {
-            selected = document.getElementById("time");
+            selected = document.getElementById("pin");
         });
 
         function keypadClick(number) {
@@ -27,14 +26,6 @@
             var value = selected.value;
             selected.value = value.substring(0, value.length-1);
         }
-
-        function selectTime() {
-            selected = document.getElementById("time");
-        }
-
-        function selectWarning() {
-            selected = document.getElementById("warning");
-        }
     </script>
 </head>
 <body class="gweb-site">
@@ -43,7 +34,7 @@
             <div class="gweb-text-layout is-centered">
                 <div class="columns is-multiline">
                     <div class="column is-full">
-                        <h1>Setup Countdown</h1>
+                        <h1>Enter your pin to continue</h1>
                     </div>
                     <div class="column columns is-multiline is-half">
                         <div class="column is-one-third">
@@ -84,42 +75,19 @@
                         </div>
                     </div>
                     <div class="column is-half is-centered">
-                        <form action="/countdown" method="get">
+                        <form action="/auth" method="post">
                             <div class="field">
-                                <label class="label" for="time">Time</label>
+                                <label class="label" for="pin">PIN</label>
                                 <div class="control">
-                                    <input class="input" type="number" id="time" name="time" onfocus="selectTime()">
-                                    @error('time')<p class="help is-danger">{{ $message }}</p>@enderror
+                                    <input class="input" type="password" id="pin" name="pin">
+                                    @error('pin')<p class="help is-danger">{{ $message }}</p>@enderror
                                 </div>
                             </div>
-
-                            <div class="field">
-                                <label class="label" for="unit">Unit</label>
-                                <div class="control">
-                                    <div class="select">
-                                        <select id="unit" name="unit">
-                                            <option>Seconds</option>
-                                            <option>Minutes</option>
-                                            <option>Hours</option>
-                                        </select>
-                                    </div>
-                                    @error('unit')<p class="help is-danger">{{ $message }}</p>@enderror
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label" for="warning">Warning Time (seconds)</label>
-                                <div class="control">
-                                    <input class="input" type="number" id="warning" name="warning" value="30" onfocus="selectWarning()">
-                                    @error('warning')<p class="help is-danger">{{ $message }}</p>@enderror
-                                </div>
-                            </div>
-
                             <div class="field">
                                 <p class="control">
-                                    <button class="button is-success is-outlined is-fullwidth">Start Countdown</button>
+                                    <button class="button is-success is-outlined is-fullwidth">Authenticate</button>
                                 </p>
-                                @error('start')<p class="help is-danger">{{ $message }}</p>@enderror
+                                @error('submit')<p class="help is-danger">{{ $message }}</p>@enderror
                             </div>
                         </form>
                     </div>
