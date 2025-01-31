@@ -36,6 +36,8 @@
                 loopMusic.pause();
                 timerEnd.play();
                 clearInterval(updater);
+                document.getElementById("inwall-silence-button").style.display = "block";
+                document.getElementById("inwall-repeat-button").style.display = "block";
                 return;
             }
             timeRemaining = format();
@@ -65,16 +67,33 @@
             else
                 return number;
         }
+
+        function silenceClick() {
+            timerEnd.pause();
+            document.getElementById("inwall-silence-button").className = "button is-fullwidth is-success is-outlined";
+            document.getElementById("inwall-silence-button").disabled = true;
+            document.getElementById("inwall-silence-button").innerHTML = "Alarm Silenced";
+        }
+
+        function restartTimer() {
+            document.getElementById("inwall-repeat-button").className = document.getElementById("inwall-repeat-button").className + " is-loading";
+            location.reload();
+        }
     </script>
 </head>
 <body class="gweb-site">
     <main class="gweb-container">
         <section class="content">
             <div class="gweb-text-layout is-centered">
-                <div class="columns">
+                <div class="columns is-multiline">
                     <div class="column is-full">
                         <p class="has-text-centered is-size-1" id="inwall-remaining"></p>
                         <p class="has-text-centered">remaining</p>
+                    </div>
+                    <div class="column is-full">
+                        <button class="button is-fullwidth is-danger is-outlined" id="inwall-silence-button" style="display: none" onclick="silenceClick()">Silence Alarm</button>
+                        <br>
+                        <button class="button is-fullwidth is-primary is-outlined" id="inwall-repeat-button" style="display: none" onclick="restartTimer()">Repeat Countdown</button>
                     </div>
                 </div>
             </div>
