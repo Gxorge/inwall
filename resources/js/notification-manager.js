@@ -3,4 +3,8 @@ window.addEventListener("DOMContentLoaded", function() {
         .listen("TerminalNotificationSent", (e) => {
             showNotification(e.title, e.message);
         });
+    Echo.private("notifications.site." + siteId)
+        .listen("SiteNotificationSent", (e) => {
+            showNotification(e.title, e.message)
+        })
 }, false);

@@ -3,17 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
     <title>Hotten Inwall</title>
 
     @vite(['resources/js/app.js'])
     @vite(['resources/scss/app.scss'])
     @vite(['resources/js/notification-manager.js'])
-    @vite(['resources/js/inactivity.js'])
+    <!--@vite(['resources/js/inactivity.js'])-->
 
     <script>
-        var siteId = 1;
-        var terminalId = 1;
+        var siteId = {{session()->get('rid')}};
+        var terminalId = {{session()->get('rid')}};
 
         var time = "00:00";
         var date = "Thursday, 1st January 1970"
