@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'broadcasting' => [
+            'driver' => 'tid-auth',
+            'provider' => 'terminals'
+        ]
     ],
 
     /*
@@ -63,6 +67,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+        'terminals' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Terminal::class
         ],
 
         // 'users' => [

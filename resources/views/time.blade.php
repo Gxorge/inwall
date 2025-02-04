@@ -34,6 +34,7 @@
 <body class="gweb-site">
     <main class="gweb-container">
         <section class="content">
+            @include('notification')
             <div class="gweb-text-layout is-centered">
                 <div class="columns">
                     <div class="column is-full">

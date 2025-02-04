@@ -6,10 +6,15 @@
 
     <title>Hotten Inwall</title>
 
+    @vite(['resources/js/app.js'])
     @vite(['resources/scss/app.scss'])
+    @vite(['resources/js/notification-manager.js'])
     @vite(['resources/js/inactivity.js'])
 
     <script>
+        var siteId = 1;
+        var terminalId = 1;
+
         var time = "00:00";
         var date = "Thursday, 1st January 1970"
 
@@ -34,6 +39,7 @@
 </head>
 <body class="gweb-site">
 <main class="gweb-container">
+    @include('notification')
     <header class="hero is-primary">
         <div class="hero-body hero-text-padding">
             <h1 class="title">
