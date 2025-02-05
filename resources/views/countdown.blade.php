@@ -18,6 +18,7 @@
             time = time*3600;
         }
         var musicIntro = {{ $warning }};
+        var timerEnd;
 
         (async () => {
             const audioCtx = new window.AudioContext();
@@ -39,7 +40,7 @@
             loopMusic.loop = true;
             loopMusic.connect(audioCtx.destination);
 
-            const timerEnd = audioCtx.createBufferSource();
+            timerEnd = audioCtx.createBufferSource();
             arrayBuffer = await fetch(
                 'https://hotten.uk/inwall/timer-end.mp3',
             ).then((res) => res.arrayBuffer());
@@ -52,9 +53,12 @@
                 if (time == 0) {
                     timeRemaining = "Times up!";
                     document.getElementById('inwall-remaining').innerHTML = timeRemaining;
-                    introMusic.stop();
-                    loopMusic.stop();
-                    timerEnd.play();
+                    try {
+                        introMusic.stop();
+                        introMusic.onended = null;
+                        loopMusic.stop();
+                    } catch (e) {}
+                    timerEnd.start();
                     clearInterval(updater);
                     document.getElementById("inwall-silence-button").style.display = "block";
                     document.getElementById("inwall-repeat-button").style.display = "block";
@@ -90,7 +94,7 @@
         }
 
         function silenceClick() {
-            timerEnd.pause();
+            timerEnd.stop();
             document.getElementById("inwall-silence-button").className = "button is-fullwidth is-success is-outlined";
             document.getElementById("inwall-silence-button").disabled = true;
             document.getElementById("inwall-silence-button").innerHTML = "Alarm Silenced";
