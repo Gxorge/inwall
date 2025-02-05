@@ -18,37 +18,58 @@
             time = time*3600;
         }
         var musicIntro = {{ $warning }};
-        var introMusic = new Audio("https://hotten.uk/inwall/timer-intro.mp3");
-        var loopMusic = new Audio("https://hotten.uk/inwall/timer-loop.mp3");
-        var timerEnd = new Audio("https://hotten.uk/inwall/timer-end.mp3");
-        loopMusic.loop = true;
-        timerEnd.loop = true;
 
-        introMusic.addEventListener('ended', function() {
-            loopMusic.play();
-        });
+        (async () => {
+            const audioCtx = new window.AudioContext();
+            const introMusic = audioCtx.createBufferSource();
+            var arrayBuffer = await fetch(
+                'https://hotten.uk/inwall/timer-intro.mp3',
+            ).then((res) => res.arrayBuffer());
+            var audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+            introMusic.buffer = audioBuffer;
+            introMusic.onended = () => {loopMusic.start()}
+            introMusic.connect(audioCtx.destination);
 
-        var updater = setInterval(function() {
-            if (time == 0) {
-                timeRemaining = "Times up!";
+            const loopMusic = audioCtx.createBufferSource();
+            arrayBuffer = await fetch(
+                'https://hotten.uk/inwall/timer-loop.mp3',
+            ).then((res) => res.arrayBuffer());
+            audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+            loopMusic.buffer = audioBuffer;
+            loopMusic.loop = true;
+            loopMusic.connect(audioCtx.destination);
+
+            const timerEnd = audioCtx.createBufferSource();
+            arrayBuffer = await fetch(
+                'https://hotten.uk/inwall/timer-end.mp3',
+            ).then((res) => res.arrayBuffer());
+            audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+            timerEnd.buffer = audioBuffer;
+            timerEnd.loop = true;
+            timerEnd.connect(audioCtx.destination);
+
+            var updater = setInterval(function() {
+                if (time == 0) {
+                    timeRemaining = "Times up!";
+                    document.getElementById('inwall-remaining').innerHTML = timeRemaining;
+                    introMusic.stop();
+                    loopMusic.stop();
+                    timerEnd.play();
+                    clearInterval(updater);
+                    document.getElementById("inwall-silence-button").style.display = "block";
+                    document.getElementById("inwall-repeat-button").style.display = "block";
+                    return;
+                }
+                timeRemaining = format();
+
+                if (time == musicIntro) {
+                    introMusic.start();
+                }
+
                 document.getElementById('inwall-remaining').innerHTML = timeRemaining;
-                introMusic.pause();
-                loopMusic.pause();
-                timerEnd.play();
-                clearInterval(updater);
-                document.getElementById("inwall-silence-button").style.display = "block";
-                document.getElementById("inwall-repeat-button").style.display = "block";
-                return;
-            }
-            timeRemaining = format();
-
-            if (time == musicIntro) {
-                introMusic.play();
-            }
-
-            document.getElementById('inwall-remaining').innerHTML = timeRemaining;
-            time--;
-        }, 1000);
+                time--;
+            }, 1000);
+        })()
 
         function format() {
             if (time < 60) {
