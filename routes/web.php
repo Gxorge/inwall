@@ -35,3 +35,9 @@ Route::get('/countdown', function (Request $request) {
 
     return view('countdown')->with(['time' => $time, 'unit' => $unit, 'warning' => $warning]);
 })->middleware(RegistrationValidator::class);
+
+Route::get('/broadcast', function (Request $request) {
+    $site = $request->session()->get('rid');
+    broadcast(new \App\Events\SiteNotificationSent($site, "Hello Site " . $site, "This is a test broadcast message."));
+    abort(418);
+})->middleware(RegistrationValidator::class);
