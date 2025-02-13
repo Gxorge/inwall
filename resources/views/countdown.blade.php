@@ -20,6 +20,13 @@
         var musicIntro = {{ $warning }};
         var timerEnd;
 
+        window.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('inwall-remaining').innerHTML = format();
+            if (time === musicIntro) {
+                musicIntro--;
+            }
+        });
+
         (async () => {
             const audioCtx = new window.AudioContext();
             const introMusic = audioCtx.createBufferSource();
@@ -50,7 +57,7 @@
             timerEnd.connect(audioCtx.destination);
 
             var updater = setInterval(function() {
-                if (time == 0) {
+                if (time === 1) {
                     timeRemaining = "Times up!";
                     document.getElementById('inwall-remaining').innerHTML = timeRemaining;
                     try {
@@ -64,14 +71,15 @@
                     document.getElementById("inwall-repeat-button").style.display = "block";
                     return;
                 }
+
+                time--;
                 timeRemaining = format();
 
-                if (time == musicIntro) {
+                if (time === musicIntro) {
                     introMusic.start();
                 }
 
                 document.getElementById('inwall-remaining').innerHTML = timeRemaining;
-                time--;
             }, 1000);
         })()
 
